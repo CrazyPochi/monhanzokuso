@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="robots" content="noindex">
-    <title>MHWilds 属性素材早見表</title>
+    <title>MHWilds 属素早見表</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&display=swap" rel="stylesheet">
@@ -25,8 +24,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            
-            height: 100dvh;
+            height: 100dvh; 
             width: 100vw;
             display: flex;
             overflow: hidden;
@@ -50,43 +48,41 @@
         
         .main-content {
             flex: 1;
-            
-            background: transparent;
             padding: 20px;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             position: relative;
-            z-index: 1; 
+            background: transparent; 
         }
 
         .container {
             max-width: 850px;
             margin: 0 auto;
-            background: rgba(40, 40, 40, 0.95); 
-            border-radius: 6px;
+            background: rgba(40, 40, 40, 0.95);
+            border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.8);
             width: 100%;
             display: none;
             padding-bottom: 20px;
-            min-height: 400px;
+            margin-bottom: 50px; 
         }
         .container.show { display: block; }
 
         
         .info-header {
-            padding: 20px;
+            padding: 15px 20px;
             background: linear-gradient(to right, #3e3a34, #2a2a2a);
             border-bottom: 3px solid var(--accent);
             display: flex;
             align-items: center;
-            border-radius: 6px 6px 0 0;
+            border-radius: 8px 8px 0 0;
         }
 
         .header-icon-img {
-            width: 70px;
-            height: 70px;
-            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
             border-radius: 8px;
             background: #000;
             border: 2px solid var(--accent);
@@ -96,14 +92,14 @@
 
         .monster-title h1 { 
             margin: 0; 
-            font-size: 28px; 
+            font-size: 24px; 
             color: #ffffff;
             text-shadow: 2px 2px 4px #000;
         }
 
         
         .weakness-area {
-            padding: 15px 20px;
+            padding: 10px;
             border-bottom: 1px solid var(--border);
         }
         .weak-table {
@@ -114,9 +110,10 @@
             color: #333;
             border-radius: 4px;
             overflow: hidden;
+            font-size: 14px;
         }
-        .weak-table th { background: #4a4036; color: #fff; padding: 8px; font-weight: normal; }
-        .weak-table td { padding: 8px; font-size: 1.4em; font-weight: bold; border-right: 1px solid #ccc; }
+        .weak-table th { background: #4a4036; color: #fff; padding: 6px; font-weight: normal; }
+        .weak-table td { padding: 6px; font-size: 1.3em; font-weight: bold; border-right: 1px solid #ccc; }
         .weak-table td:last-child { border-right: none; }
 
         .col-fire { color: #e74c3c; }
@@ -134,12 +131,13 @@
         .tab {
             flex: 1;
             text-align: center;
-            padding: 15px;
+            padding: 12px;
             cursor: pointer;
             font-weight: bold;
             color: #aaa;
             border-bottom: 3px solid #444;
             transition: 0.3s;
+            font-size: 14px;
         }
         .tab:hover { background-color: #333; color: #fff; }
         .tab.active {
@@ -150,8 +148,8 @@
 
         
         .image-viewer {
-            padding: 20px;
-            min-height: 300px;
+            padding: 10px;
+            min-height: 250px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -169,42 +167,42 @@
         .material-img.active { display: block; }
 
         .no-image-msg {
-            color: #777;
-            padding: 40px;
-            border: 2px dashed #444;
+            color: #aaa;
+            padding: 30px;
+            border: 2px dashed #555;
             border-radius: 8px;
             display: none;
             text-align: center;
-            width: 100%;
+            width: 90%;
+            margin-top: 20px;
+            background: rgba(0,0,0,0.5);
         }
 
         
         .sidebar {
             width: 320px;
-            
-            background-color: rgba(42, 42, 42, 0.9);
+            background-color: rgba(30, 30, 30, 0.95);
             border-left: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
-            order: 2; 
             z-index: 10;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
         }
 
         .sidebar-header {
-            padding: 15px;
-            background-color: rgba(32, 32, 32, 0.95);
+            padding: 12px;
+            background-color: rgba(20, 20, 20, 0.95);
             border-bottom: 1px solid var(--border);
             font-weight: bold;
             color: var(--accent);
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         .search-box {
-            padding: 10px;
-            background-color: rgba(42, 42, 42, 0.8);
+            padding: 8px;
+            background-color: rgba(30, 30, 30, 0.8);
         }
 
         input {
@@ -212,7 +210,7 @@
             padding: 10px;
             border-radius: 4px;
             border: 1px solid #555;
-            background: #333;
+            background: #444;
             color: #fff;
             outline: none;
             font-size: 16px;
@@ -225,8 +223,8 @@
         }
 
         .list-item {
-            padding: 8px 15px;
-            border-bottom: 1px solid #333;
+            padding: 10px 15px;
+            border-bottom: 1px solid #3a3a3a;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -255,13 +253,15 @@
         
         @media (max-width: 768px) {
             body { 
-                flex-direction: column-reverse; 
+                flex-direction: column; 
             }
 
             
             .bg-layer {
-                background-position: center center !important;
-                background-size: cover !important; 
+                
+                background-position: center center !important; 
+                
+                background-size: cover !important;
             }
             
             .main-content { 
@@ -275,7 +275,7 @@
                 width: 100%; 
                 height: 40%; 
                 border-left: none; 
-                border-top: 1px solid var(--border);
+                border-top: 2px solid var(--accent);
                 order: 2;
             }
 
@@ -287,13 +287,11 @@
             #placeholder {
                 padding: 20px;
                 font-size: 0.9em;
-                background-color: rgba(0,0,0,0.4); 
+                
+                background-color: rgba(0,0,0,0.4);
                 border-radius: 8px;
                 margin: 20px;
             }
-            
-            .monster-title h1 { font-size: 20px; }
-            .weak-table td { font-size: 1.2em; }
         }
     </style>
 </head>
@@ -302,9 +300,9 @@
     <div class="bg-layer"></div>
 
     <div class="main-content">
-        <div id="placeholder" style="text-align:center; padding:50px; color:#fff; text-shadow:1px 1px 3px #000;">
-            <h3>リストから選択してください</h3>
-            
+        <div id="placeholder">
+            <h3>下のリストから選択してください</h3>
+            <p style="font-size:0.8em; color:#ddd;">
         </div>
         
         <div class="container" id="detailContainer">
@@ -336,18 +334,16 @@
                 <img id="img-high" class="material-img" src="" alt="上位素材画像">
                 
                 <div id="msg-no-img" class="no-image-msg">
-                    下位素材は無いよ～<br>
-                    <span style="font-size:0.85em; color:#aaa;">
-                        
-                        <span id="missing-filename" style="color:#d4af37; font-weight:bold; display:block; margin-top:5px; word-break:break-all;"></span>
-                    </span>
+                    <span style="font-weight:bold; font-size:1.1em; color:#e74c3c;">画像が見つかりません</span><br><br>
+                    
+                    <span id="missing-filename" style="color:#d4af37; font-weight:bold; display:block; margin-top:5px; word-break:break-all;"></span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="sidebar">
-        <div class="sidebar-header">MHWilds 属性素材リスト</div>
+        <div class="sidebar-header">MHWilds モンスターリスト</div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="モンスター名で検索..." onkeyup="filterList()">
         </div>
@@ -355,6 +351,7 @@
     </div>
 
     <script>
+        // 32体データ
         const database = [
             { name: "チャタカブラ", e: ["✕", "✕", "◎", "△", "✕"] },
             { name: "ケマトリス", e: ["✕", "◯", "✕", "✕", "✕"] },
@@ -387,7 +384,8 @@
             { name: "タマミツネ", e: ["✕", "✕", "◯", "△", "◯"] },
             { name: "ラギアクルス", e: ["◯", "✕", "✕", "✕", "✕"] },
             { name: "セルレギオス", e: ["✕", "✕", "◯", "△", "✕"] },
-            { name: "オメガプラネテス", e: ["✕", "△", "◎", "△", "◯"] }
+            { name: "オメガプラネテス", e: ["✕", "△", "◎", "△", "◯"] },
+            { name: "ゴグマジオス", e: ["◯", "✕", "✕", "✕", "◯"] }
         ];
 
         const colors = ["col-fire", "col-water", "col-thunder", "col-ice", "col-dragon"];
@@ -404,6 +402,7 @@
             data.forEach((m, idx) => {
                 const div = document.createElement("div");
                 div.className = "list-item";
+                
                 const dummy = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIiBmaWxsPSIjNDQ0Ij48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiLz48L3N2Zz4=";
                 
                 div.innerHTML = `
