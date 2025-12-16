@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex">
+    <title>MHWilds 属性素材早見表</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #1b1b1b;
+            --bg-panel: #2a2a2a;
+            --text-main: #ffffff;
+            --accent: #d4af37;
+            --border: #444;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: "Shippori Mincho", serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            overflow: hidden;
+            
+            
+            background-image: url('背景.png');
+            background-repeat: no-repeat;
+            background-position: center center; 
+            background-size: cover; 
+            background-attachment: fixed; 
+            background-color: var(--bg-dark); 
+        }
+
+        
+        .main-content {
+            flex: 1;
+            
+            background: transparent;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1; 
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(40, 40, 40, 0.95); 
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            width: 100%;
+            display: none;
+            padding-bottom: 20px;
+            min-height: 400px;
+        }
+        .container.show { display: block; }
+
+        
+        .info-header {
+            padding: 20px;
+            background: linear-gradient(to right, #3e3a34, #2a2a2a);
+            border-bottom: 3px solid var(--accent);
+            display: flex;
+            align-items: center;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .header-icon-img {
+            width: 70px;
+            height: 70px;
+            margin-right: 20px;
+            border-radius: 8px;
+            background: #000;
+            border: 2px solid var(--accent);
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .monster-title h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            color: #ffffff;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        
+        .weakness-area {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .weak-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            background: #eee;
+            color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .weak-table th { background: #4a4036; color: #fff; padding: 8px; font-weight: normal; }
+        .weak-table td { padding: 8px; font-size: 1.4em; font-weight: bold; border-right: 1px solid #ccc; }
+        .weak-table td:last-child { border-right: none; }
+
+        .col-fire { color: #e74c3c; }
+        .col-water { color: #3498db; }
+        .col-thunder { color: #f1c40f; text-shadow: 1px 1px 0 #888; }
+        .col-ice { color: #74b9ff; }
+        .col-dragon { color: #8e44ad; }
+
+        
+        .tabs {
+            display: flex;
+            background: #222;
+            margin-top: 10px;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #aaa;
+            border-bottom: 3px solid #444;
+            transition: 0.3s;
+        }
+        .tab:hover { background-color: #333; color: #fff; }
+        .tab.active {
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+            background: #3a3a3a;
+        }
+
+        
+        .image-viewer {
+            padding: 20px;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: #222;
+            position: relative;
+        }
+
+        .material-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            display: none;
+        }
+        .material-img.active { display: block; }
+
+        .no-image-msg {
+            color: #777;
+            padding: 40px;
+            border: 2px dashed #444;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        
+        .sidebar {
+            width: 320px;
+            
+            background-color: rgba(42, 42, 42, 0.9);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            order: 2;
+            z-index: 10;
+            backdrop-filter: blur(8px); 
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            background-color: rgba(32, 32, 32, 0.95);
+            border-bottom: 1px solid var(--border);
+            font-weight: bold;
+            color: var(--accent);
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .search-box {
+            padding: 10px;
+            background-color: rgba(42, 42, 42, 0.8);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #333;
+            color: #fff;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .monster-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .list-item {
+            padding: 8px 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background 0.2s;
+            color: #ffffff;
+        }
+
+        .list-item:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .list-item.active { 
+            background-color: var(--accent); 
+            color: #000000;
+            font-weight: bold; 
+        }
+
+        .list-icon-img {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+            border-radius: 6px;
+            background: #000;
+            border: 1px solid #666;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            body { 
+                flex-direction: column-reverse; 
+                
+                height: 100vh;
+                height: 100dvh; 
+            }
+            .sidebar { width: 100%; height: 40%; border-left: none; border-top: 1px solid var(--border); }
+            .main-content { height: 60%; padding: 10px; }
+            .monster-title h1 { font-size: 20px; }
+            .weak-table td { font-size: 1.2em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <div id="placeholder" style="text-align:center; padding:50px; color:#fff; text-shadow:1px 1px 3px #000;">
+            <h3>右側のリストから選択してください</h3>
+            
+        </div>
+        
+        <div class="container" id="detailContainer">
+            <div class="info-header">
+                <img id="headerIcon" class="header-icon-img" src="" alt="icon" onerror="this.style.display='none'">
+                <div class="monster-title">
+                    <h1 id="mName">モンスター名</h1>
+                </div>
+            </div>
+
+            <div class="weakness-area">
+                <table class="weak-table">
+                    <thead>
+                        <tr><th>火</th><th>水</th><th>雷</th><th>氷</th><th>龍</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr id="weakRow"></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchRank('low', this)">下位素材</div>
+                <div class="tab" onclick="switchRank('high', this)">上位素材</div>
+            </div>
+
+            <div class="image-viewer">
+                <img id="img-low" class="material-img" src="" alt="下位素材画像">
+                <img id="img-high" class="material-img" src="" alt="上位素材画像">
+                
+                <div id="msg-no-img" class="no-image-msg">
+                    下位の素材は無いよ～(〃･ω･)ﾉﾉ<br>
+                    <span style="font-size:0.85em; color:#aaa;">
+                        
+                        <span id="missing-filename" style="color:#d4af37; font-weight:bold;"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-header">MHWilds 属性素材リスト</div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="モンスター名で検索..." onkeyup="filterList()">
+        </div>
+        <div class="monster-list" id="monsterList"></div>
+    </div>
+
+    <script>
+        // ▼▼▼ 全32体 弱点データ (GameWith準拠) ▼▼▼
+        const database = [
+            { name: "チャタカブラ", e: ["✕", "✕", "◎", "△", "✕"] },
+            { name: "ケマトリス", e: ["✕", "◯", "✕", "✕", "✕"] },
+            { name: "ラバラ・バリナ", e: ["◯", "✕", "✕", "✕", "✕"] },
+            { name: "ババコンガ", e: ["◯", "✕", "✕", "◯", "✕"] },
+            { name: "バーラハーラ", e: ["✕", "✕", "◯", "✕", "✕"] },
+            { name: "ドシャグマ", e: ["◯", "✕", "△", "✕", "✕"] },
+            { name: "ウズ・トゥナ", e: ["✕", "✕", "◯", "✕", "✕"] },
+            { name: "ププロポル", e: ["✕", "◯", "✕", "✕", "✕"] },
+            { name: "レ・ダウ", e: ["✕", "△", "✕", "◯", "✕"] },
+            { name: "ネルスキュラ", e: ["◯", "✕", "✕", "✕", "✕"] },
+            { name: "ヒラバミ", e: ["◎", "✕", "◯", "✕", "✕"] },
+            { name: "アジャラカン", e: ["✕", "◎", "✕", "△", "✕"] },
+            { name: "ヌ・エグドラ", e: ["✕", "◯", "✕", "✕", "✕"] },
+            { name: "護竜ドシャグマ", e: ["◎", "✕", "△", "◎", "◯"] },
+            { name: "護竜リオレウス", e: ["✕", "✕", "◯", "✕", "◎"] },
+            { name: "ジン・ダハド", e: ["△", "✕", "✕", "✕", "✕"] },
+            { name: "護竜オドガロン亜種", e: ["◯", "◎", "◯", "◯", "◯"] },
+            { name: "シーウー", e: ["✕", "✕", "✕", "◎", "✕"] },
+            { name: "アルシュベルド", e: ["✕", "✕", "✕", "✕", "△"] },
+            { name: "イャンクック", e: ["✕", "△", "◯", "◎", "✕"] },
+            { name: "ゲリョス", e: ["◎", "✕", "✕", "◯", "✕"] },
+            { name: "リオレイア", e: ["✕", "△", "◯", "△", "◎"] },
+            { name: "護竜アンジャナフ亜種", e: ["✕", "◎", "✕", "◎", "◯"] },
+            { name: "リオレウス", e: ["✕", "✕", "◯", "✕", "◎"] },
+            { name: "グラビモス", e: ["✕", "◎", "✕", "△", "◯"] },
+            { name: "ドドブランゴ", e: ["◎", "✕", "△", "✕", "✕"] },
+            { name: "ゴア・マガラ", e: ["◯", "✕", "△", "✕", "△"] },
+            { name: "ゾ・シア", e: ["✕", "✕", "✕", "✕", "◯"] },
+            { name: "タマミツネ", e: ["✕", "✕", "◯", "△", "◯"] },
+            { name: "ラギアクルス", e: ["◯", "✕", "✕", "✕", "✕"] },
+            { name: "セルレギオス", e: ["✕", "✕", "◯", "△", "✕"] },
+            { name: "オメガプラネテス", e: ["✕", "△", "◎", "△", "◯"] }
+        ];
+
+        const colors = ["col-fire", "col-water", "col-thunder", "col-ice", "col-dragon"];
+        let currentMonster = null;
+        let currentRank = 'low';
+
+        window.onload = function() {
+            renderList(database);
+        };
+
+        function renderList(data) {
+            const list = document.getElementById("monsterList");
+            list.innerHTML = "";
+            data.forEach((m, idx) => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                
+                const dummy = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIiBmaWxsPSIjNDQ0Ij48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiLz48L3N2Zz4=";
+                
+                div.innerHTML = `
+                    <img src="images/${m.name}.png" class="list-icon-img" onerror="this.src='${dummy}'">
+                    <span>${m.name}</span>
+                `;
+                div.onclick = () => selectMonster(idx, div);
+                list.appendChild(div);
+            });
+        }
+
+        function selectMonster(index, el) {
+            currentMonster = database[index];
+            
+            document.querySelectorAll(".list-item").forEach(i => i.classList.remove("active"));
+            el.classList.add("active");
+
+            document.getElementById("placeholder").style.display = "none";
+            document.getElementById("detailContainer").classList.add("show");
+
+            document.getElementById("mName").innerText = currentMonster.name;
+            const headerIcon = document.getElementById("headerIcon");
+            headerIcon.src = `images/${currentMonster.name}.png`;
+            headerIcon.style.display = 'block';
+
+            const row = document.getElementById("weakRow");
+            row.innerHTML = "";
+            currentMonster.e.forEach((val, i) => {
+                const td = document.createElement("td");
+                td.innerText = val;
+                if(val === "◎" || val === "◯") td.className = colors[i];
+                row.appendChild(td);
+            });
+
+            switchRank('low', document.querySelectorAll(".tab")[0]); 
+        }
+
+        function switchRank(rank, btn) {
+            currentRank = rank;
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            btn.classList.add("active");
+            updateImageDisplay();
+        }
+
+        function updateImageDisplay() {
+            if(!currentMonster) return;
+
+            const imgLow = document.getElementById("img-low");
+            const imgHigh = document.getElementById("img-high");
+            const noImgMsg = document.getElementById("msg-no-img");
+            const missingName = document.getElementById("missing-filename");
+
+            const pathLow = `images/mats/${currentMonster.name}_下位.png`;
+            const pathHigh = `images/mats/${currentMonster.name}_上位.png`;
+
+            imgLow.classList.remove("active");
+            imgHigh.classList.remove("active");
+            noImgMsg.style.display = "none";
+
+            const targetImg = (currentRank === 'low') ? imgLow : imgHigh;
+            const targetPath = (currentRank === 'low') ? pathLow : pathHigh;
+
+            targetImg.src = targetPath;
+            
+            targetImg.onload = function() {
+                targetImg.classList.add("active");
+                noImgMsg.style.display = "none";
+            };
+
+            targetImg.onerror = function() {
+                targetImg.classList.remove("active");
+                noImgMsg.style.display = "block";
+                missingName.innerText = `${currentMonster.name}_${(currentRank==='low'?'下位':'上位')}.png`;
+            };
+        }
+
+        window.filterList = function() {
+            const val = document.getElementById("searchInput").value;
+            const items = document.querySelectorAll(".list-item");
+            items.forEach(item => {
+                if(item.innerText.includes(val)) item.style.display = "flex";
+                else item.style.display = "none";
+            });
+        }
+    </script>
+</body>
+</html>
